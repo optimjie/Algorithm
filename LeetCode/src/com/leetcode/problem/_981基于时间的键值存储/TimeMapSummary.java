@@ -13,7 +13,7 @@ public class TimeMapSummary {
     }
 
     public String get(String key, int timestamp) {
-        int a;
+        int a, b;
         return "";
     }
 }
