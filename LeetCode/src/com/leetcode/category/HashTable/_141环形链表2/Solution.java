@@ -5,6 +5,7 @@ import java.util.Set;
 
 public class Solution {
     public class ListNode {
+        int val;
         ListNode next;
     }
     public ListNode detectCycle(ListNode head) {
