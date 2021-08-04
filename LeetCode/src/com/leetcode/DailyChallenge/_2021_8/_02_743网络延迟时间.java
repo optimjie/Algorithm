@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class _2_743网络延迟时间 {
+public class _02_743网络延迟时间 {
 
     int n;
     List<List<int[]>> g;
