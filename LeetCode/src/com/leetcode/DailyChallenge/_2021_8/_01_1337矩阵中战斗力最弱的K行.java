@@ -4,7 +4,7 @@ import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 
 import java.util.*;
 
-public class _1_1337矩阵中战斗力最弱的K行 {
+public class _01_1337矩阵中战斗力最弱的K行 {
     public int[] kWeakestRows(int[][] mat, int k) {
         List<int[]> a = new ArrayList<>();
         for (int i = 0; i < mat.length; i++) {
