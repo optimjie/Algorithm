@@ -1,3 +1,48 @@
+#### SQL61 对于employees表中，给出奇数行的first_name
+```sql
+select first_name from employees where first_name in (
+    select first_name from (
+        select first_name, row_number() over(order by first_name) as rk from employees
+    ) tb1 where rk % 2 = 1
+) 
+```
+
+#### SQL62 出现三次以上相同积分的情况
+
+```sql
+select number from grade
+group by number
+having count(id) >= 3
+```
+
+#### SQL63 刷题通过的题目排名
+
+```sql
+select id, number, dense_rank() over(order by number desc) as t_rank from passing_number
+```
+
+#### SQL64 找到每个人的任务
+
+```sql
+select person.id, person.name, task.content from person left join task
+on person.id = task.person_id
+```
+
+#### SQL65 异常的邮件概率
+
+```sql
+select date, round(sum(case when type = 'completed' then 0 else 1 end) / count(date), 3) as p from (
+    select * from email 
+    where send_id in (
+        select id from user where is_blacklist = 0
+    ) and receive_id in (    
+        select id from user where is_blacklist = 0
+    ) 
+) tb1
+group by date
+order by date
+```
+
 #### SQL66 牛客每个人最近的登录日期(一)
 
 ```sql
@@ -67,6 +112,43 @@ select tb4.date, case when tot_cnt = 0 then 0.000 else round(ifnull(cnt, 0) / to
 ) tb5 on tb4.date = tb5.date
 ```
 
+#### SQL73 考试分数(二)
+
+```sql
+select tb1.* from grade as tb1
+left join (
+    select job, avg(score) as avg from grade group by job
+) as tb2
+on tb1.job = tb2.job
+where score > avg
+order by tb1.id
+```
+
+#### SQL73 考试分数(三)
+
+```sql
+select tb1.id, name, score from (
+    select id, language_id, score, dense_rank() over(partition by language_id order by score desc) as rk from grade
+) tb1  inner join language 
+on tb1.language_id = language.id
+where rk <= 2
+order by name, score desc
+```
+
+#### SQL73 考试分数(四)
+
+```sql
+select 
+job,
+case when cnt % 2 = 1 then ceiling(cnt / 2) else ceiling(cnt / 2) end,
+case when cnt % 2 = 1 then ceiling(cnt / 2) else ceiling(cnt / 2) + 1 end
+from (
+    select job, count(id) as cnt from grade
+    group by job
+) tb1
+order by job
+```
+
 #### SQL84 实习广场投递简历分析(一)
 ```sql
 select job, sum(num) as cnt
@@ -88,23 +170,22 @@ order by mon desc, cnt desc
 #### SQL86 实习广场投递简历分析(三)
 
 ```sql
-SELECT tb1.job, first_year_month, first_year_cnt, second_year_month, second_year_cnt FROM (
-	SELECT job, DATE_FORMAT(date,'%Y-%m') as first_year_month, SUM(num) AS first_year_cnt
-	FROM resume_info 
-	WHERE date BETWEEN '2025-01-01' AND '2025-12-31'
-	GROUP BY first_year_month, job
-	ORDER BY first_year_month DESC, job DESC
-) tb1 INNER JOIN (
-	SELECT job, DATE_FORMAT(date,'%Y-%m') as second_year_month, SUM(num) AS second_year_cnt
-	FROM resume_info 
-	WHERE date BETWEEN '2026-01-01' AND '2026-12-31'
-	GROUP BY second_year_month, job
-	ORDER BY second_year_month DESC, job DESC
+select tb1.job, first_year_month, first_year_cnt, second_year_month, second_year_cnt from (
+    select job, date_format(date,'%Y-%m') as first_year_month, sum(num) as first_year_cnt
+    from resume_info 
+    where date between '2025-01-01' and '2025-12-31'
+    group by first_year_month, job
+    order by first_year_month desc, job desc
+) tb1 inner join (
+    select job, date_format(date,'%Y-%m') as second_year_month, sum(num) as second_year_cnt
+    from resume_info 
+    where date between '2026-01-01' and '2026-12-31'
+    group by second_year_month, job
+    order by second_year_month desc, job desc
 ) tb2
-ON (SUBSTR(tb2.second_year_month FROM 3 FOR 2) - SUBSTR(tb1.first_year_month FROM 3 FOR 2)) = 1
-	AND SUBSTR(tb2.second_year_month FROM 6 FOR 2) = SUBSTR(tb1.first_year_month FROM 6 FOR 2)
-	AND tb1.job = tb2.job
-
+on (substr(tb2.second_year_month from 3 for 2) - substr(tb1.first_year_month from 3 for 2)) = 1
+    and substr(tb2.second_year_month from 6 for 2) = substr(tb1.first_year_month from 6 for 2)
+    and tb1.job = tb2.job
 ```
 
 #### SQL89 获得积分最多的人(一)
