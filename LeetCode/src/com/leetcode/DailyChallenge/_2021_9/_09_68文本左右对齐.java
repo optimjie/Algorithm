@@ -14,16 +14,16 @@ public class _09_68文本左右对齐 {
                 r++;
             }
             if (r == n) { // 特判最后一行
-                String t = "";
+                StringBuilder t = new StringBuilder("");
                 for (int i = l; i < r; i++) {
-                    t = t + words[i];
-                    if (i != r - 1) t = t + " ";
+                    t.append(words[i]);
+                    if (i != r - 1) t.append(" ");
                 }
                 int kk = maxWidth - t.length();
                 while (kk-- > 0) {
-                    t = t + " ";
+                    t.append(" ");
                 }
-                ans.add(t);
+                ans.add(t.toString());
                 break;
             }
             int cnt = r - l; // 字符串数量
@@ -32,25 +32,25 @@ public class _09_68文本左右对齐 {
             int sub = maxWidth - len1;
             int[] blankNo = new int[cnt - 1];
             if (cnt == 1) { // 特判一行只有一个单词的情况
-                String t = words[l];
+                StringBuilder t = new StringBuilder(words[l]);
                 int kk = maxWidth - words[l].length();
                 while (kk-- > 0) {
-                    t = t + " ";
+                    t.append(" ");
                 }
-                ans.add(t);
+                ans.add(t.toString());
             } else {
                 calculateBlank(blankNo, sub, cnt - 1);
-                String t = "";
+                StringBuilder t = new StringBuilder("");
                 for (int i = l, j = 0; i < r; i++, j++) {
-                    t = t + words[i];
+                    t.append(words[i]);
                     if (i != r - 1) {
                         int sum = blankNo[j];
                         while (sum -- > 0) {
-                            t = t + " ";
+                            t.append(" ");
                         }
                     }
                 }
-                ans.add(t);
+                ans.add(t.toString());
             }
             l = r;
         }
