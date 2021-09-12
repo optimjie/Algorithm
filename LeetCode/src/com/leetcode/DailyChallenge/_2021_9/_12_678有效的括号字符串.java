@@ -40,6 +40,7 @@ public class _12_678有效的括号字符串 {
         }
         return f[0][n - 1]; // 返回从0到n-1
     }
+
     public boolean check(char a, char b) { // 检查字符a和字符b是否合法
         if (a == '(' && b == ')') return true;
         if (a == '*' && b == ')') return true;
