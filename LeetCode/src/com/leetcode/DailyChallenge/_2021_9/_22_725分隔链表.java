@@ -13,11 +13,14 @@ public class _22_725分隔链表 {
         return len;
     }
     public ListNode[] splitListToParts(ListNode head, int k) {
+
         int len = getLength(head);
+
         int[] a = new int[k];
         for (int i = 0; i < k; i++) a[i] = len / k;
         int sum = len % k;
         for (int i = 0; i < sum; i++) a[i]++;
+
         ListNode p  = head;
         ListNode[] ans = new ListNode[k];
         int cnt = 0;
