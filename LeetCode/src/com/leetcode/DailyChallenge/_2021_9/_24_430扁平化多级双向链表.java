@@ -19,6 +19,7 @@ public class _24_430扁平化多级双向链表 {
         }
         return p;
     }
+
     public Node solve(Node head) { // 返回扁平化之后的头节点
         if (head == null) return null; // 如果head为空，则直接返回null
         if (head.child == null) { // 如果head节点没有孩子的话，直接将head的后继节点扁平化的结果接到head后即可
