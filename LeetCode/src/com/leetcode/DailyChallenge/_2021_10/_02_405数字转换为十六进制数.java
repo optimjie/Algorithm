@@ -9,13 +9,7 @@ public class _02_405数字转换为十六进制数 {
 
     public static String toHex(int num) {
         String ans = "";
-        if (num < 0) {
-            num = -num;
-            num = ~num;
-            num++;
-        } else if (num == 0) {
-            ans = "0";
-        }
+        if (num == 0) ans = "0";
         while (num != 0) {
             int k = 0;
             int s = 1;
