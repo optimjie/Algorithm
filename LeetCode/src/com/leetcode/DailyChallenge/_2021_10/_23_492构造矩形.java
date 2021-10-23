@@ -8,6 +8,7 @@ public class _23_492构造矩形 {
                 return new int[]{max, min};
             }
         }
+
         return null;
     }
 }
