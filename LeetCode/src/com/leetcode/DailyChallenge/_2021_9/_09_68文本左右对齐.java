@@ -56,7 +56,7 @@ public class _09_68文本左右对齐 {
         }
         return ans;
     }
-    public void calculateBlank(int[] blankNo, int sub, int cnt) {
+    public void calculateBlank(int[] blankNo, int sub, int cnt) { // 计算空格
         if (sub % cnt == 0) {
             for (int i = 0; i < cnt; i++) blankNo[i] = sub / cnt;
         } else {

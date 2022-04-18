@@ -18,4 +18,13 @@ public class _14_剑指OfferII069山峰数组的顶部 {
         }
         return -1;
     }
+    public int peakIndexInMountainArrayBinarySearch(int[] arr) {
+        int l = 0, r = arr.length;
+        while (l < r) {
+            int mid = l + r >> 1;
+            if (arr[mid] < arr[mid + 1]) l = mid + 1; // 因为下取整所以mid+1不会越界
+            else r = mid;
+        }
+        return l;
+    }
 }

@@ -3,7 +3,7 @@ package com.leetcode.category.HashTable._146LRU缓存机制;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LRUCache {
+public class LRUCache { // Least Recently Used
 
     public class DLNode { // 定义双链表结点
         int key, val;

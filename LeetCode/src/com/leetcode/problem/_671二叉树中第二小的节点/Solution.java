@@ -1,6 +1,5 @@
 package com.leetcode.problem._671二叉树中第二小的节点;
 
-import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
