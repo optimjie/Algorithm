@@ -1,47 +1,27 @@
-package com.acwing.co_fun_algorithm._2022_04_09;
+package com.acwing.co_fun_algorithm._2022_04_15;
 
 import java.io.*;
 
-public class _2 {
+public class _3 {
 
-    static int N = 30010;
+    static int N = 510;
     static int n;
-    static int[] a = new int[N];
-    static int[] one = new int[N];
-    static int s;
+    static int[][] a = new int[N][N];
+    static int[][] f = new int[N][N];
 
     public static void solve() throws IOException {
+
         n = nextInt();
-        int cnt = 1;
-        one[0] = -1;
-        for (int i = 0; i < n; i++) {
-            a[i] = nextInt();
-            if (a[i] == 1) one[cnt++] = i;
-        }
-        one[cnt] = n;
-        s = nextInt();
-        if (s == 0) {
-            int ans = 0;
-            for (int l = 0; l < n; ) {
-                while (l < n && a[l] == 1) l++;
-                int r = l;
-                while (r < n && a[r] == 0) r++;
-                if (l < n) {
-                    int len = r - l;
-                    ans += len * (len + 1) / 2;
-                }
-                l = r;
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= i; j++) {
+                a[i][j] = nextInt();
+                f[i][j] = a[i][j] + Math.max(f[i - 1][j - 1], f[i - 1][j]);
             }
-            out.println(ans);
-        } else {
-            int ans = 0;
-            for (int i = 1; i <= cnt - s; i++) {
-                int cnt_l = one[i] - one[i - 1] - 1;
-                int cnt_r = one[i + s] - one[i + s - 1] - 1;
-                ans += (cnt_l + 1) * (cnt_r + 1);
-            }
-            out.println(ans);
         }
+        int ans = -1;
+        for (int i = 1; i <= n; i++) ans = Math.max(ans, f[n][i]);
+
+        out.println(ans);
         out.flush();
     }
 

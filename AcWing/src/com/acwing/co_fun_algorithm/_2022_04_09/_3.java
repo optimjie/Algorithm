@@ -1,48 +1,51 @@
 package com.acwing.co_fun_algorithm._2022_04_09;
 
 import java.io.*;
+import java.util.Arrays;
 
-public class _2 {
+public class _3 {
 
-    static int N = 30010;
+    static int N = 2010;
     static int n;
-    static int[] a = new int[N];
-    static int[] one = new int[N];
-    static int s;
+    static int[] e = new int[N];
+    static int[] ne = new int[N];
+    static int[] h = new int[N];
+    static int idx;
+
+    static int[] sum = new int[N];
+
+    public static void add(int x, int y){
+        e[idx] = y;
+        ne[idx] = h[x];
+        h[x] = idx++;
+    }
+
+    public static int dfs(int u, int fa) {
+        sum[u] = 1;
+        for (int i = h[u]; i != -1; i = ne[i]) {
+            int j = e[i];
+            if (j == fa) continue;
+            sum[u] += dfs(j, u);
+        }
+        return sum[u];
+    }
 
     public static void solve() throws IOException {
+
+        Arrays.fill(h, -1);
         n = nextInt();
-        int cnt = 1;
-        one[0] = -1;
-        for (int i = 0; i < n; i++) {
-            a[i] = nextInt();
-            if (a[i] == 1) one[cnt++] = i;
+        for (int i = 0; i < n - 1; i++) {
+            int x, y;
+            x = nextInt(); y = nextInt();
+            add(x, y);
+            add(y, x);
         }
-        one[cnt] = n;
-        s = nextInt();
-        if (s == 0) {
-            int ans = 0;
-            for (int l = 0; l < n; ) {
-                while (l < n && a[l] == 1) l++;
-                int r = l;
-                while (r < n && a[r] == 0) r++;
-                if (l < n) {
-                    int len = r - l;
-                    ans += len * (len + 1) / 2;
-                }
-                l = r;
-            }
-            out.println(ans);
-        } else {
-            int ans = 0;
-            for (int i = 1; i <= cnt - s; i++) {
-                int cnt_l = one[i] - one[i - 1] - 1;
-                int cnt_r = one[i + s] - one[i + s - 1] - 1;
-                ans += (cnt_l + 1) * (cnt_r + 1);
-            }
-            out.println(ans);
-        }
+        dfs(1, 0);
+        int ans = 0;
+        for (int i = 1; i <= n; i++) ans += sum[i];
+        out.println(ans);
         out.flush();
+
     }
 
 

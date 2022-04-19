@@ -1,48 +1,39 @@
-package com.acwing.co_fun_algorithm._2022_04_09;
+package com.acwing.co_fun_algorithm._2022_04_15;
 
 import java.io.*;
 
 public class _2 {
 
-    static int N = 30010;
-    static int n;
+    static int N = 10010;
+    static int n, m;
     static int[] a = new int[N];
-    static int[] one = new int[N];
-    static int s;
 
     public static void solve() throws IOException {
-        n = nextInt();
-        int cnt = 1;
-        one[0] = -1;
+
+        n = nextInt(); m = nextInt();
+        double t;
         for (int i = 0; i < n; i++) {
-            a[i] = nextInt();
-            if (a[i] == 1) one[cnt++] = i;
+            t = nextDouble();
+            a[i] = (int)(t * 100);
         }
-        one[cnt] = n;
-        s = nextInt();
-        if (s == 0) {
-            int ans = 0;
-            for (int l = 0; l < n; ) {
-                while (l < n && a[l] == 1) l++;
-                int r = l;
-                while (r < n && a[r] == 0) r++;
-                if (l < n) {
-                    int len = r - l;
-                    ans += len * (len + 1) / 2;
-                }
-                l = r;
+
+        int l = 0, r = (int)1e7;
+        while (l < r) {
+            int mid = l + r + 1 >> 1;
+            int cnt = 0;
+            for (int i = 0; i < n; i++) {
+                cnt += a[i] / mid;
             }
-            out.println(ans);
-        } else {
-            int ans = 0;
-            for (int i = 1; i <= cnt - s; i++) {
-                int cnt_l = one[i] - one[i - 1] - 1;
-                int cnt_r = one[i + s] - one[i + s - 1] - 1;
-                ans += (cnt_l + 1) * (cnt_r + 1);
+            if (cnt >= m) {
+                l = mid;
+            } else {
+                r = mid - 1;
             }
-            out.println(ans);
         }
+        double ans = l / 100.0;
+        out.printf("%.2f", ans);
         out.flush();
+
     }
 
 
