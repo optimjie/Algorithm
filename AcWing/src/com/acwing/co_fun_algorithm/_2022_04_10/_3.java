@@ -19,8 +19,7 @@ public class _3 {
 
         // 131 19260817
 
-        while (in.nextToken() != StreamTokenizer.TT_EOF) {
-            s = (String)in.sval;
+        while ((s = reader.readLine()) != null) {
             int n = s.length();
             s = " " + s + s;
             p[0] = 1;
@@ -30,10 +29,12 @@ public class _3 {
             }
 
             String ans = "NO";
-            for (int i = n; i >= 1; i--) {
-                if (get(i, i + n - 1) == get(i + n, i + 2 * n - 1)) {
-                    ans = "YES";
-                    break;
+            if (n % 2 == 0) {
+                for (int i = n + 1; i >= 1; i--) {
+                    if (get(i, i + (n / 2) - 1) == get(i + (n / 2), i + n - 1)) {
+                        ans = "YES";
+                        break;
+                    }
                 }
             }
             out.println(ans);
@@ -41,14 +42,6 @@ public class _3 {
         out.flush();
 
     }
-
-
-
-
-
-
-
-
 
 
 

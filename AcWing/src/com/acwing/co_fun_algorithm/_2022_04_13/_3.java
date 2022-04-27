@@ -1,48 +1,51 @@
-package com.acwing.co_fun_algorithm._2022_04_07;
+package com.acwing.co_fun_algorithm._2022_04_13;
 
 import java.io.*;
 
 public class _3 {
 
-    static long k;
+    static int n;
+    static int N = 110;
+    static int[][] d = new int[N][N];
+    static int inf = 0x3f3f3f3f;
 
-    public static long check(long x) {  // 找1~x中有多少个2和5
-        long cnt_2 = 0, cnt_5 = 0;
-        for (long i = 2; i <= x; i *= 2) {
-            cnt_2 += x / i;
+    public static void floyd() {
+        for (int k = 1; k <= n; k++) {
+            for (int i = 1; i <= n; i++) {
+                for (int j = 1; j <= n; j++) {
+                    d[i][j] = Math.min(d[i][j], d[i][k] + d[k][j]);
+                }
+            }
         }
-        for (long i = 5; i <= x; i *= 5) {
-            cnt_5 += x / i;
-        }
-
-        return Math.min(cnt_5, cnt_2);
     }
 
     public static void solve() throws IOException {
 
-        k = Long.parseLong(reader.readLine());
-
-        long l = 1, r = 1l << 60;
-
-        while (l < r) {
-            long mid = (l + r) / 2;
-            // 要找左端点
-            if (check(mid) >= k) r = mid;
-            else l = mid + 1;
+        n = Integer.parseInt(reader.readLine());
+        for (int i = 2; i <= n; i++) {
+            String[] strs = reader.readLine().split(" ");
+            for (int j = 1; j < i; j++) {
+                String t = strs[j - 1];
+                if (!"x".equals(t)) {
+                    d[i][j] = Integer.parseInt(t);
+                } else {
+                    d[i][j] = inf;
+                }
+                d[j][i] = d[i][j];
+            }
         }
 
-        out.println(l);
+        floyd();
+
+        int ans = -1;
+        for (int i = 1; i <= n; i++) {
+            ans = Math.max(ans, d[1][i]);
+        }
+
+        out.println(ans);
         out.flush();
 
     }
-
-
-
-
-
-
-
-
 
 
 

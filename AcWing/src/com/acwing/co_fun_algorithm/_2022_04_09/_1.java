@@ -1,48 +1,37 @@
-package com.acwing.co_fun_algorithm._2022_04_07;
+package com.acwing.co_fun_algorithm._2022_04_09;
 
 import java.io.*;
+import java.util.*;
 
-public class _3 {
+public class _1 {
 
-    static long k;
-
-    public static long check(long x) {  // 找1~x中有多少个2和5
-        long cnt_2 = 0, cnt_5 = 0;
-        for (long i = 2; i <= x; i *= 2) {
-            cnt_2 += x / i;
-        }
-        for (long i = 5; i <= x; i *= 5) {
-            cnt_5 += x / i;
-        }
-
-        return Math.min(cnt_5, cnt_2);
-    }
+    static int N = (int)2e5 + 10;
+    static int n, m, k;
+    static int[] a = new int[N];
 
     public static void solve() throws IOException {
 
-        k = Long.parseLong(reader.readLine());
+        String[] str = reader.readLine().split(" ");
+        n = Integer.parseInt(str[0]);
+        m = Integer.parseInt(str[1]);
+        k = Integer.parseInt(str[2]);
 
-        long l = 1, r = 1l << 60;
+        str = reader.readLine().split(" ");
+        for (int i = 0; i < n; i++) a[i] = Integer.parseInt(str[i]);
 
-        while (l < r) {
-            long mid = (l + r) / 2;
-            // 要找左端点
-            if (check(mid) >= k) r = mid;
-            else l = mid + 1;
+        Arrays.sort(a, 0, n);
+        long ans = 0;
+        int x = a[n - 1], y = a[n - 2];
+
+
+        if (k >= m) ans = x * m;
+        else {
+            long t = 1l * x * k + y;  // 一组的和
+            ans = (1l * m / (k + 1)) * t + (1l * m % (k + 1)) * x;
         }
-
-        out.println(l);
+        out.println(ans);
         out.flush();
-
     }
-
-
-
-
-
-
-
-
 
 
 

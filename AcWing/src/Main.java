@@ -14,14 +14,6 @@ public class Main {
 
 
 
-
-
-
-
-
-
-
-
     static int TT = 1;
     public static void main(String[] args) throws IOException {
         while (TT-- > 0) {
