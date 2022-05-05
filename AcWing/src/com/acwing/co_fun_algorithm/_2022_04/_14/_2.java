@@ -1,10 +1,26 @@
+package com.acwing.co_fun_algorithm._2022_04._14;
+
 import java.io.*;
 import java.math.*;
 import java.util.*;
 
-public class Main {
-
+public class _2 {
+    static long T, n;
+    public static String get(long n) {
+        long cnt = 1l, sum = 1l;
+        while (sum < n) {
+            cnt++;
+            sum = 2 * sum + 1;
+        }
+        long mid = (sum + 1) / 2;
+        return "";
+    }
     public static void solve() throws IOException {
+        T = nextLong();
+        while (T-- > 0) {
+            n = nextLong();
+            out.println(get(n));
+        }
         out.flush();
     }
 

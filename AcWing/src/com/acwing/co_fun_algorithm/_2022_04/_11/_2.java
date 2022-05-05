@@ -1,10 +1,27 @@
+package com.acwing.co_fun_algorithm._2022_04._11;
+
 import java.io.*;
 import java.math.*;
 import java.util.*;
 
-public class Main {
-
+public class _2 {
+    static int n;
+    static Stack<Integer> stk = new Stack<>();
+    static int ans = 0;
     public static void solve() throws IOException {
+        n = nextInt();
+        for (int i = 0; i < n; i++) {
+            int v, di;
+            v = nextInt(); di = nextInt();
+            if (di == 1) stk.push(v);
+            else {
+                while (stk.size() > 0 && stk.peek() < v) {
+                    stk.pop();
+                }
+                if (stk.empty()) ans++;
+            }
+        }
+        out.println(ans + stk.size());
         out.flush();
     }
 

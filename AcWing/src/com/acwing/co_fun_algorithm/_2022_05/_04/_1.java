@@ -1,10 +1,28 @@
+package com.acwing.co_fun_algorithm._2022_05._04;
 import java.io.*;
 import java.math.*;
 import java.util.*;
 
-public class Main {
-
+public class _1 {
+    static int N = 100010;
+    static int n, ans = 0;
+    static int[] a = new int[N];
     public static void solve() throws IOException {
+        n = nextInt();
+        for (int i = 0; i < n; i++) a[i] = nextInt();
+        Arrays.sort(a, 0, n);
+        for (int l = 0; l < n; ) {
+            int x = a[l], r = l;
+            while (r < n && a[r] == a[l] && r - l < x) r++;
+            if (r == n || a[r] != a[l]) {  // r-l个一样的数 3 3
+                ans += (r - l) + x - (r - l - 1);
+                l = r;
+            } else if (r - l == x) {
+                ans += x + 1;
+                l = r + 1;
+            }
+        }
+        out.println(ans);
         out.flush();
     }
 

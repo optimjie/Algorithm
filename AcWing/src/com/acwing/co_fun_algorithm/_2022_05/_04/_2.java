@@ -1,10 +1,28 @@
+package com.acwing.co_fun_algorithm._2022_05._04;
 import java.io.*;
 import java.math.*;
 import java.util.*;
 
-public class Main {
-
+public class _2 {
     public static void solve() throws IOException {
+        String s = reader.readLine();
+        int n = s.length(), ans = 0;
+        Stack<Integer> stk = new Stack<>();
+        for (int i = 0; i < n; i++) {
+            if (stk.size() > 0 && s.charAt(i) == ')' && s.charAt(stk.peek()) == '(') {
+                stk.pop();
+            } else {
+                stk.push(i);
+            }
+            int len = 0;
+            if (stk.size() > 0) {
+                len = i - stk.peek();
+            } else {
+                len = i + 1;
+            }
+            ans = Math.max(ans, len);
+        }
+        out.println(ans);
         out.flush();
     }
 
@@ -18,5 +36,5 @@ public class Main {
     public static int nextInt() throws IOException { in.nextToken(); return (int) in.nval; }
     public static long nextLong() throws IOException { in.nextToken(); return (long) in.nval; }
     public static String next() throws IOException { in.nextToken(); return (String) in.sval; }
-    public static double nextDouble() throws IOException { in.nextToken(); return in.nval; }
+    public static double nextDouble() throws IOException { in.nextToken(); return in.nval; } // ))))))))))))(((()()(()()))))((((()
 }
